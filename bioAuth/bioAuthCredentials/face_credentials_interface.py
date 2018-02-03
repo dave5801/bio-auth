@@ -20,6 +20,20 @@ class FaceCredentialsAWSInterface(object):
 
         return os.listdir(self.url_where_photos_are)
 
+    def detect_labels(bucket, key, max_labels=10, min_confidence=90, region="eu-west-1"):
+        rekognition = boto3.client("rekognition", region)
+        response = rekognition.detect_labels(
+            Image={
+                "S3Object": {
+                    "Bucket": bucket,
+                    "Name": key,
+                }
+            },
+            MaxLabels=max_labels,
+            MinConfidence=min_confidence,
+        )
+        return response['Labels']
+
 
 if __name__ == '__main__':
     face_credentials_interface = FaceCredentialsAWSInterface("static/test_photos_for_checking_api/nicholas_cage/")
@@ -27,23 +41,13 @@ if __name__ == '__main__':
     list_of_face_photos = face_credentials_interface.getListOfPhotoUrlsFromADirectoryofFaces()
     print(list_of_face_photos)
 
+    for label in face_credentials_interface.detect_labels(BUCKET, KEY):
+        print("{Name} - {Confidence}%".format(**label))
+
 
 '''
-def detect_labels(bucket, key, max_labels=10, min_confidence=90, region="eu-west-1"):
-    rekognition = boto3.client("rekognition", region)
-    response = rekognition.detect_labels(
-        Image={
-            "S3Object": {
-                "Bucket": bucket,
-                "Name": key,
-            }
-        },
-        MaxLabels=max_labels,
-        MinConfidence=min_confidence,
-    )
-    return response['Labels']
 
 
-for label in detect_labels(BUCKET, KEY):
-    print("{Name} - {Confidence}%".format(**label))
+
+
     '''
