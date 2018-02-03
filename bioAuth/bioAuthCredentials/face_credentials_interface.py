@@ -3,10 +3,9 @@ import os
 from os import listdir
 from os.path import isfile, join
 
-#BUCKET = "amazon-rekognition"
-BUCKET = "hackthenowprojectbucket"
-KEY = "test.jpg"
 
+#Key.set(os.environ.get('AWS_ACCESS_KEY_ID', ''))
+#BaseUrl.set(os.environ.get('AWS_SECRET_ACCESS_KEY', ''))
 
 class FaceCredentialsAWSInterface(object):
     def __init__(self, url_where_photos_are=None):
@@ -20,8 +19,23 @@ class FaceCredentialsAWSInterface(object):
 
         return os.listdir(self.url_where_photos_are)
 
-    def detect_labels(bucket, key, max_labels=10, min_confidence=90, region="eu-west-1"):
-        rekognition = boto3.client("rekognition", region)
+    def detect_labels(self, bucket, key, max_labels=10, min_confidence=90, region="eu-west-1"):
+        
+        '''
+        aws_access_key_id=os.environ.get('AWS_ACCESS_KEY_ID', ''),
+            aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY',
+        '''
+        #rekognition = boto3.client('rekognition', region)
+        rekognition = boto3.client(
+            'rekognition',
+            aws_access_key_id=os.environ.get('AWS_ACCESS_KEY_ID'),
+            aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY'),
+            )
+        print(type(rekognition))
+        print(key)
+        return ''
+        '''
+        
         response = rekognition.detect_labels(
             Image={
                 "S3Object": {
@@ -33,21 +47,21 @@ class FaceCredentialsAWSInterface(object):
             MinConfidence=min_confidence,
         )
         return response['Labels']
+        '''
+        
 
 
 if __name__ == '__main__':
+
     face_credentials_interface = FaceCredentialsAWSInterface("static/test_photos_for_checking_api/nicholas_cage/")
 
     list_of_face_photos = face_credentials_interface.getListOfPhotoUrlsFromADirectoryofFaces()
     print(list_of_face_photos)
 
-    for label in face_credentials_interface.detect_labels(BUCKET, KEY):
-        print("{Name} - {Confidence}%".format(**label))
+    #BUCKET = "amazon-rekognition"
+    BUCKET = "hackthenowprojectbucket"
+    KEY = list_of_face_photos[0]
 
-
-'''
-
-
-
-
-    '''
+    x = face_credentials_interface.detect_labels(BUCKET, KEY)
+    print(x)
+        
