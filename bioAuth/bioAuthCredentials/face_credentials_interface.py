@@ -14,13 +14,11 @@ class FaceCredentialsAWSInterface(object):
 
 
     def getListOfPhotoUrlsFromADirectoryofFaces(self):
-        """Get Directory of Faces."""
+
         if not os.path.isdir(self.url_where_photos_are):
             return "Invalid File Path"
 
-        list_of_photos_that_exist = [f for f in listdir(self.url_where_photos_are) if isfile(join(self.url_where_photos_are))]
-
-        return list_of_photos_that_exist
+        return os.listdir(self.url_where_photos_are)
 
 
 if __name__ == '__main__':
