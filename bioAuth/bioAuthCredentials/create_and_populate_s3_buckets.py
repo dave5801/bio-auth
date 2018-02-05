@@ -7,29 +7,29 @@ import string
 import random
 
 
-'''
-'''
-
 class S3BucketProperties(object):
     def __init__(self,url=None):
         self.url=url
 
-    def get_aws_credentials():
+    def get_photo_url_from_local_directory(self):
+        return self.url
+
+    def get_aws_credentials(self):
         return [os.environ.get('AWS_ACCESS_KEY_ID'), os.environ.get('AWS_SECRET_ACCESS_KEY')]
 
-    def generate_unique_s3_id(size=20, chars=string.ascii_uppercase + string.digits):
-        return ''.join(random.choice(chars) for _ in range(size))
-
-    def get_s3_bucket_name():
-        return generate_unique_s3_id().lower() + "-bucket"
-
-#class CreateNewS3Bucket(object):
-#    def __init__(self):
-
+    def generate_unique_s3_bucket_name(self, size=20, chars=string.ascii_uppercase + string.digits):
+        random_str = ''.join(random.choice(chars) for _ in range(size))
+        return random_str.lower() + "-bucket"
 
 
 if __name__ == '__main__':
     testfile = "static/test_photos_for_checking_api/nicholas_cage/cage1.png"
+
+    props = S3BucketProperties(testfile)
+    print(props.get_photo_url_from_local_directory())
+    print(props.get_aws_credentials())
+
+    print(props.generate_unique_s3_bucket_name())
 
 
 '''
