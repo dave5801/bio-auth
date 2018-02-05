@@ -22,6 +22,30 @@ class S3BucketProperties(object):
         return random_str.lower() + "-bucket"
 
 
+class CreateNewS3Bucket(object):
+
+    def display_output_complete(self,complete, total):
+        sys.stdout.write('.')
+        sys.stdout.flush()
+
+    def __init__(self,url=None):
+        self.url = url
+        self.properties = S3BucketProperties(self.url)
+
+        AWS_ACCESS_KEY_ID = self.properties[0]
+        AWS_SECRET_ACCESS_KEY = self.properties[1]
+
+
+        self.conn = boto.connect_s3(AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY)
+
+        bucket = conn.create_bucket(bucket_name,location=boto.s3.connection.Location.DEFAULT)
+
+        k = Key(bucket)
+        k.key = 'cage1.png'
+        k.set_contents_from_filename(testfile,
+            cb=percent_cb, num_cb=10)
+
+
 if __name__ == '__main__':
     testfile = "static/test_photos_for_checking_api/nicholas_cage/cage1.png"
 
