@@ -9,11 +9,17 @@ import random
 
 '''
 '''
+
+class CreateS3Bucket(object):
+    def __init__(self):
+        AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+        AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+
+
 def generate_unique_s3_id(size=20, chars=string.ascii_uppercase + string.digits):
     return ''.join(random.choice(chars) for _ in range(size))
 
-AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+
 
 bucket_name = generate_unique_s3_id().lower() + "-bucket"
 conn = boto.connect_s3(AWS_ACCESS_KEY_ID,
