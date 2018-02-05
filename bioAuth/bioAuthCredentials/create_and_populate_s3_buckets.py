@@ -10,16 +10,34 @@ import random
 '''
 '''
 
-class CreateS3Bucket(object):
-    def __init__(self):
-        AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
-        AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+class S3BucketProperties(object):
+    def __init__(self,url=None):
+        self.url=url
+
+    def get_aws_credentials():
+        return [os.environ.get('AWS_ACCESS_KEY_ID'), os.environ.get('AWS_SECRET_ACCESS_KEY')]
+
+    def generate_unique_s3_id(size=20, chars=string.ascii_uppercase + string.digits):
+        return ''.join(random.choice(chars) for _ in range(size))
+
+    def get_s3_bucket_name():
+        return generate_unique_s3_id().lower() + "-bucket"
+
+#class CreateNewS3Bucket(object):
+#    def __init__(self):
 
 
+
+if __name__ == '__main__':
+    testfile = "static/test_photos_for_checking_api/nicholas_cage/cage1.png"
+
+
+'''
 def generate_unique_s3_id(size=20, chars=string.ascii_uppercase + string.digits):
     return ''.join(random.choice(chars) for _ in range(size))
 
-
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 
 bucket_name = generate_unique_s3_id().lower() + "-bucket"
 conn = boto.connect_s3(AWS_ACCESS_KEY_ID,
@@ -40,3 +58,4 @@ k.key = 'cage1.png'
 k.set_contents_from_filename(testfile,
     cb=percent_cb, num_cb=10)
 
+'''
