@@ -12,6 +12,12 @@ class S3BucketProperties(object):
         self.url=url
 
     def get_photo_url_from_local_directory(self):
+        if not os.path.isdir(self.url):
+            print("not Directory")
+        else:
+            x = os.listdir(self.url)
+            print(x)
+
         return self.url
 
     def get_aws_credentials(self):
@@ -49,6 +55,10 @@ class CreateNewS3Bucket(object):
 
 
 if __name__ == '__main__':
-    testfile = "static/test_photos_for_checking_api/nicholas_cage/cage1.png"
+    testfile = "static/test_photos_for_checking_api/nicholas_cage"
 
-    new_s3_bucket = CreateNewS3Bucket(testfile)
+    test_s3_props = S3BucketProperties(testfile)
+
+    x = test_s3_props.get_photo_url_from_local_directory()
+    print(x)
+    #new_s3_bucket = CreateNewS3Bucket(testfile)
