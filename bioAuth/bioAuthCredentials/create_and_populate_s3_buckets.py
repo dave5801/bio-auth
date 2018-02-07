@@ -32,7 +32,6 @@ class CreateNewS3Bucket(object):
         self.url = url
         self.properties = S3BucketProperties(self.url)
 
-      
         credentials = self.properties.get_aws_credentials()
 
         AWS_ACCESS_KEY_ID = credentials[0]
@@ -42,20 +41,14 @@ class CreateNewS3Bucket(object):
 
         bucket_name = self.properties.generate_unique_s3_bucket_name()
 
-        bucket = conn.create_bucket(bucket_name,location=boto.s3.connection.Location.DEFAULT)
+        bucket = conn.create_bucket(bucket_name, location=boto.s3.connection.Location.DEFAULT)
 
-        #k = Key(bucket)
-        #k.key = 'cage1.png'
-        #k.set_contents_from_filename(testfile,
-         #   cb=display_output_complete, num_cb=10)
+        k = Key(bucket)
+        k.key = 'cage1.png'
+        k.set_contents_from_filename(testfile,cb=None, num_cb=10)
 
 
 if __name__ == '__main__':
     testfile = "static/test_photos_for_checking_api/nicholas_cage/cage1.png"
 
-    #props = S3BucketProperties(testfile)
-    #print(props.get_photo_url_from_local_directory())
-    #print(props.get_aws_credentials())
-    #print(props.generate_unique_s3_bucket_name())
-    new_s3_bucket = CreateNewS3Bucket("static/test_photos_for_checking_api/nicholas_cage/cage1.png")
-
+    new_s3_bucket = CreateNewS3Bucket(testfile)
