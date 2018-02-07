@@ -41,17 +41,14 @@ class CreateNewS3Bucket(object):
 
         bucket_name = self.properties.generate_unique_s3_bucket_name()
 
-        bucket = conn.create_bucket(bucket_name,location=boto.s3.connection.Location.DEFAULT)
-        #conn.create_bucket(bucket_name,location=boto.s3.connection.Location.DEFAULT)
+        bucket = conn.create_bucket(bucket_name, location=boto.s3.connection.Location.DEFAULT)
 
         k = Key(bucket)
         k.key = 'cage1.png'
-        k.set_contents_from_filename(testfile,
-            cb=None, num_cb=10)
+        k.set_contents_from_filename(testfile,cb=None, num_cb=10)
 
 
 if __name__ == '__main__':
     testfile = "static/test_photos_for_checking_api/nicholas_cage/cage1.png"
 
-    new_s3_bucket = CreateNewS3Bucket("static/test_photos_for_checking_api/nicholas_cage/cage1.png")
-
+    new_s3_bucket = CreateNewS3Bucket(testfile)
