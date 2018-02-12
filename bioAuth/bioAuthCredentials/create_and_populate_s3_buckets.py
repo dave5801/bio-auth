@@ -11,12 +11,12 @@ class S3BucketProperties(object):
     def __init__(self,url=None):
         self.url=url
 
-    def get_photo_url_from_local_directory(self):
+    def get_list_of_photos_from_local_directory(self):
         if not os.path.isdir(self.url):
             print("not Directory")
         else:
             x = os.listdir(self.url)
-            print(x)
+            print("dir contents", x)
 
         return self.url
 
@@ -49,9 +49,15 @@ class CreateNewS3Bucket(object):
 
         bucket = conn.create_bucket(bucket_name, location=boto.s3.connection.Location.DEFAULT)
 
+        list_of_photos = self.properties.get_list_of_photos_from_local_directory()
+        print(list_of_photos)
+
+        '''
         k = Key(bucket)
         k.key = 'cage1.png'
+        print("TEST", k)
         k.set_contents_from_filename(testfile,cb=None, num_cb=10)
+        '''
 
 
 if __name__ == '__main__':
@@ -59,6 +65,5 @@ if __name__ == '__main__':
 
     test_s3_props = S3BucketProperties(testfile)
 
-    x = test_s3_props.get_photo_url_from_local_directory()
-    print(x)
-    #new_s3_bucket = CreateNewS3Bucket(testfile)
+    #x = test_s3_props.get_list_of_photos_from_local_directory()
+    new_s3_bucket = CreateNewS3Bucket(testfile)
