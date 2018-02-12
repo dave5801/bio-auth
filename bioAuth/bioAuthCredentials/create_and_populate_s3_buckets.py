@@ -13,12 +13,10 @@ class S3BucketProperties(object):
 
     def get_list_of_photos_from_local_directory(self):
         if not os.path.isdir(self.url):
-            print("not Directory")
+            return("Error: Url is not a Directory")
         else:
-            x = os.listdir(self.url)
-            print("dir contents", x)
+            return os.listdir(self.url)
 
-        return self.url
 
     def get_aws_credentials(self):
         return [os.environ.get('AWS_ACCESS_KEY_ID'), os.environ.get('AWS_SECRET_ACCESS_KEY')]
@@ -51,6 +49,14 @@ class CreateNewS3Bucket(object):
 
         list_of_photos = self.properties.get_list_of_photos_from_local_directory()
         print(list_of_photos)
+
+        #http://boto3.readthedocs.io/en/latest/guide/quickstart.html
+        #for i in list_of_photos:
+            #print(i)
+       
+            #data = open(self.url + photo, 'rb')
+            #s3.Bucket(bucket).put_object(Key=photo, Body=data)
+
 
         '''
         k = Key(bucket)
