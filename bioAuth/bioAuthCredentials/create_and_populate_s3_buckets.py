@@ -1,4 +1,5 @@
 import boto
+import boto3
 import os
 import boto.s3
 import sys
@@ -48,22 +49,14 @@ class CreateNewS3Bucket(object):
         bucket = conn.create_bucket(bucket_name, location=boto.s3.connection.Location.DEFAULT)
 
         list_of_photos = self.properties.get_list_of_photos_from_local_directory()
-        print(list_of_photos)
 
-        #http://boto3.readthedocs.io/en/latest/guide/quickstart.html
-        #for i in list_of_photos:
-            #print(i)
-       
-            #data = open(self.url + photo, 'rb')
-            #s3.Bucket(bucket).put_object(Key=photo, Body=data)
+        for photo in list_of_photos:
+            a_photo_file = self.url + '/' + photo
+            k = Key(bucket)
+            k.key = photo
+            print("TEST", k)
+            k.set_contents_from_filename(a_photo_file,cb=None, num_cb=10)
 
-
-        '''
-        k = Key(bucket)
-        k.key = 'cage1.png'
-        print("TEST", k)
-        k.set_contents_from_filename(testfile,cb=None, num_cb=10)
-        '''
 
 
 if __name__ == '__main__':
