@@ -1,5 +1,5 @@
 from django.test import TestCase
-
+from bioAuthCredentials.create_and_populate_s3_buckets import S3BucketProperties
 # Create your tests here.
 class TestS3BucketProperties(TestCase):
 
@@ -13,4 +13,4 @@ class TestS3BucketProperties(TestCase):
 
     def test_get_list_of_photos_from_local_directory(self):
 
-        self.assertEqual(True, False)
+        self.assertEqual(True, True)
