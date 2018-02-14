@@ -1,5 +1,6 @@
 from django.test import TestCase
 from bioAuthCredentials.create_and_populate_s3_buckets import S3BucketProperties
+import os
 # Create your tests here.
 
 
@@ -23,11 +24,11 @@ class TestS3BucketProperties(TestCase):
         self.assertEqual(URL_TO_PHOTO_DIRECTORY_FOR_TESTING,
          test_url_from_SS3BucketProperties)
 
+
     def test_get_list_of_photos_from_local_directory(self):
         self.assertEqual(True,True)
 
-    def test_get_aws_credentials(self):
-        self.assertEqual(True,True)
+
     
     def test_generate_unique_s3_bucket_name(self):
         self.assertEqual(True,True)
