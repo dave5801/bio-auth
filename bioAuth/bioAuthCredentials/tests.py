@@ -20,10 +20,15 @@ class TestS3BucketProperties(TestCase):
         assert os.path.exists(TEST_OBJECT_FOR_S3_BUCKET_PROPERTIES.url)
 
     def test_photos_in_directory_exist(self):
-        self.assertEqual(TEST_PHOTOS_IN_DIRECTORY, TEST_OBJECT_FOR_S3_BUCKET_PROPERTIES.get_list_of_photos_from_local_directory())
+        self.assertEqual(TEST_PHOTOS_IN_DIRECTORY, 
+            TEST_OBJECT_FOR_S3_BUCKET_PROPERTIES.get_list_of_photos_from_local_directory())
 
-    
-    def test_generate_unique_s3_bucket_name(self):
-        self.assertEqual(True,True)
+    def test_unique_s3_bucket_name_is_formated_correctly(self):
+        mock_random_string_for_bucket_name = "xxxxxxxxxxxxxxxxxxxx"
+        mock_bucket_name_extension = "photo-keyset-bucket"
+        mock_created_bucket_name = mock_random_string_for_bucket_name + mock_bucket_name_extension
+
+        test_bucket_name = TEST_OBJECT_FOR_S3_BUCKET_PROPERTIES.generate_unique_s3_bucket_name()
+        self.assertEqual(len(mock_created_bucket_name),len(test_bucket_name))
 
 
