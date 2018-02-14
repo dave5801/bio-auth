@@ -1,10 +1,13 @@
 from django.test import TestCase
 from bioAuthCredentials.create_and_populate_s3_buckets import S3BucketProperties
 import os.path
+import os
 # Create your tests here.
 
 
 URL_TO_PHOTO_DIRECTORY_FOR_TESTING = "bioAuthCredentials/static/test_photos_for_checking_api/nicholas_cage"
+
+TEST_PHOTOS_IN_DIRECTORY = os.listdir(URL_TO_PHOTO_DIRECTORY_FOR_TESTING)
 
 class TestS3BucketProperties(TestCase):
 
@@ -21,21 +24,9 @@ class TestS3BucketProperties(TestCase):
         assert os.path.exists(test_s3_props.url)
 
 
-        '''
-    def test_get_list_of_photos_from_local_directory(self):
-        print("TESTING")
+    def test_photos_in_directory_exist(self):
         test_s3_props = S3BucketProperties(URL_TO_PHOTO_DIRECTORY_FOR_TESTING)
-        print(URL_TO_PHOTO_DIRECTORY_FOR_TESTING)
-
-        test_get_photos_from_a_directory = os.listdir(URL_TO_PHOTO_DIRECTORY_FOR_TESTING)
-        print(os.listdir(URL_TO_PHOTO_DIRECTORY_FOR_TESTING))
-
-
-        test_s3_properties_has_directory_of_photos = test_s3_props.get_list_of_photos_from_local_directory()
-        print(test_s3_properties_has_directory_of_photos)
-        self.assertEqual(True,True)
-        '''
-
+        self.assertEqual(TEST_PHOTOS_IN_DIRECTORY, test_s3_props.get_list_of_photos_from_local_directory())
 
     
     #def test_generate_unique_s3_bucket_name(self):
