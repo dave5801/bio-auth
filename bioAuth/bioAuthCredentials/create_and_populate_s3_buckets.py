@@ -10,14 +10,13 @@ import random
 
 class S3BucketProperties(object):
     def __init__(self,url=None):
-        self.url=url
+        self.url = url
 
     def get_list_of_photos_from_local_directory(self):
         if not os.path.isdir(self.url):
             return("Error: Url is not a Directory")
         else:
             return os.listdir(self.url)
-
 
     def get_aws_credentials(self):
         return [os.environ.get('AWS_ACCESS_KEY_ID'), os.environ.get('AWS_SECRET_ACCESS_KEY')]
@@ -59,5 +58,5 @@ if __name__ == '__main__':
     testfile = "static/test_photos_for_checking_api/nicholas_cage"
 
     test_s3_props = S3BucketProperties(testfile)
-
-    new_s3_bucket = CreateNewS3Bucket(testfile)
+    print(test_s3_props.get_list_of_photos_from_local_directory())
+    #new_s3_bucket = CreateNewS3Bucket(testfile)
