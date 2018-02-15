@@ -35,6 +35,11 @@ class TestS3BucketProperties(TestCase):
 
 class TestS3Connection(TestCase):
     
-    def test_connection_works(self):
+    def test_if_basic_connection_works(self):
         self.assertIsNotNone(boto.connect_s3())
+
+
+class TestS3BucketCreation(TestCase):
+    def setUp(self):
+        self.connection = boto.connect_s3()
 
