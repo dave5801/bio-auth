@@ -43,3 +43,8 @@ class TestS3BucketCreation(TestCase):
     def setUp(self):
         self.connection = boto.connect_s3()
 
+    def test_bucket_can_be_created(self):
+        bucket = self.create_bucket()
+        self.assertIsNotNone(bucket)
+        self.assertEqual(len(bucket.get_all_keys()), 0)
+

@@ -31,13 +31,10 @@ class CreateNewS3Bucket(object):
     def __init__(self,url=None):
         self.url = url
         self.properties = S3BucketProperties(self.url)
+        list_containing_aws_access_key_and_secret_access_key = self.properties.get_aws_credentials()
 
-        credentials = self.properties.get_aws_credentials()
-
-        AWS_ACCESS_KEY_ID = credentials[0]
-        AWS_SECRET_ACCESS_KEY = credentials[1]
-
-        connect_to_s3 = boto.connect_s3(AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY)
+        connect_to_s3 = boto.connect_s3(list_containing_aws_access_key_and_secret_access_key[0],
+            list_containing_aws_access_key_and_secret_access_key[1])
 
         bucket_name = self.properties.generate_unique_s3_bucket_name()
 
@@ -46,6 +43,7 @@ class CreateNewS3Bucket(object):
 
         print("BUCKET", bucket)
         '''
+         '''
         list_of_photos = self.properties.get_list_of_photos_from_local_directory()
 
         for photo in list_of_photos:
@@ -53,7 +51,7 @@ class CreateNewS3Bucket(object):
             k = Key(bucket)
             k.key = photo
             k.set_contents_from_filename(a_photo_file,cb=None, num_cb=10)
-            '''
+           
 
 
 
