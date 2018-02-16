@@ -2,6 +2,7 @@ from django.test import TestCase
 from bioAuthCredentials.create_and_populate_s3_buckets import S3BucketProperties
 import os.path
 import os
+import boto
 
 URL_TO_PHOTO_DIRECTORY_FOR_TESTING = "bioAuthCredentials/static/test_photos_for_checking_api/nicholas_cage"
 
@@ -31,4 +32,19 @@ class TestS3BucketProperties(TestCase):
         test_bucket_name = TEST_OBJECT_FOR_S3_BUCKET_PROPERTIES.generate_unique_s3_bucket_name()
         self.assertEqual(len(mock_created_bucket_name),len(test_bucket_name))
 
+
+class TestS3Connection(TestCase):
+    
+    def test_if_basic_connection_works(self):
+        self.assertIsNotNone(boto.connect_s3())
+
+
+class TestS3BucketCreation(TestCase):
+    def setUp(self):
+        self.connection = boto.connect_s3()
+
+    def test_bucket_can_be_created(self):
+        bucket = self.create_bucket()
+        self.assertIsNotNone(bucket)
+        self.assertEqual(len(bucket.get_all_keys()), 0)
 

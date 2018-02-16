@@ -26,24 +26,29 @@ class S3BucketProperties(object):
         return random_str.lower() + "photo-keyset-bucket"
 
 
+
 class CreateNewS3Bucket(object):
 
     def __init__(self,url=None):
         self.url = url
         self.properties = S3BucketProperties(self.url)
+        list_of_aws_credentials = self.properties.get_aws_credentials()
 
-        credentials = self.properties.get_aws_credentials()
+        '''
+         '''
+        resultant_object_from_s3_connection = boto.connect_s3(list_of_aws_credentials[0],
+            list_of_aws_credentials[1])
+           
 
-        AWS_ACCESS_KEY_ID = credentials[0]
-        AWS_SECRET_ACCESS_KEY = credentials[1]
-
-        connect_to_s3 = boto.connect_s3(AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY)
 
         bucket_name = self.properties.generate_unique_s3_bucket_name()
 
-        bucket = connect_to_s3.create_bucket(bucket_name,
+        bucket = resultant_object_from_s3_connection.create_bucket(bucket_name,
          location=boto.s3.connection.Location.DEFAULT)
 
+        print("BUCKET", bucket)
+        '''
+         '''
         list_of_photos = self.properties.get_list_of_photos_from_local_directory()
 
         for photo in list_of_photos:
@@ -51,6 +56,7 @@ class CreateNewS3Bucket(object):
             k = Key(bucket)
             k.key = photo
             k.set_contents_from_filename(a_photo_file,cb=None, num_cb=10)
+           
 
 
 
@@ -58,5 +64,5 @@ if __name__ == '__main__':
     testfile = "static/test_photos_for_checking_api/nicholas_cage"
 
     test_s3_props = S3BucketProperties(testfile)
-    print(test_s3_props.get_list_of_photos_from_local_directory())
-    #new_s3_bucket = CreateNewS3Bucket(testfile)
+    #print(test_s3_props.get_list_of_photos_from_local_directory())
+    new_s3_bucket = CreateNewS3Bucket(testfile)
