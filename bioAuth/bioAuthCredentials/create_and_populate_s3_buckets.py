@@ -26,19 +26,24 @@ class S3BucketProperties(object):
         return random_str.lower() + "photo-keyset-bucket"
 
 
+
 class CreateNewS3Bucket(object):
 
     def __init__(self,url=None):
         self.url = url
         self.properties = S3BucketProperties(self.url)
-        list_containing_aws_access_key_and_secret_access_key = self.properties.get_aws_credentials()
+        list_of_aws_credentials = self.properties.get_aws_credentials()
 
-        connect_to_s3 = boto.connect_s3(list_containing_aws_access_key_and_secret_access_key[0],
-            list_containing_aws_access_key_and_secret_access_key[1])
+        '''
+         '''
+        resultant_object_from_s3_connection = boto.connect_s3(list_of_aws_credentials[0],
+            list_of_aws_credentials[1])
+           
+
 
         bucket_name = self.properties.generate_unique_s3_bucket_name()
 
-        bucket = connect_to_s3.create_bucket(bucket_name,
+        bucket = resultant_object_from_s3_connection.create_bucket(bucket_name,
          location=boto.s3.connection.Location.DEFAULT)
 
         print("BUCKET", bucket)
