@@ -1,0 +1,104 @@
+{% load bootstrap3 %}
+
+{% bootstrap_css %}
+
+{% load static %}
+<link rel="stylesheet" href="{% static "imager_profile/styles.css" %}">
+<style>
+.space {
+  background-color: black;
+}
+
+.navbar-default .navbar-toggle:focus,
+.navbar-default .navbar-toggle:hover {
+    background-color: transparent;
+}
+
+.navbar-default .navbar-toggle {
+    border: none;
+}
+
+
+.navbar-toggle span.icon-bar {
+    transition: all 0.15s;
+}
+
+.navbar-toggle span:nth-child(2) {
+    transform: rotate(45deg);
+    transform-origin: 10% 10%;
+}
+
+.navbar-toggle span:nth-child(3) {
+    opacity: 0;
+}
+
+.navbar-toggle span:nth-child(4) {
+    transform: rotate(-45deg);
+    transform-origin: 10% 90%;
+}
+
+
+.navbar-toggle.collapsed span:nth-child(2),
+.navbar-toggle.collapsed span:nth-child(4) {
+    transform: rotate(0);
+}
+
+.navbar-toggle.collapsed span:nth-child(3) {
+    opacity: 1;
+}
+
+</style>
+{% block bootstrap3_content %}
+    <div class="container space">
+        <div class="page-header">
+            <h1>Space Imager <small>The place for space photos</small></h1>
+        </div>
+        <nav class="navbar navbar-default navbar-static-top">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#">Project name</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+              <ul class="nav navbar-nav">
+                <li class="active"><a  href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'about' %}">About</a></li>
+                <li><a href="#contact">Blog</a></li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+        <!--
+        <ul class="nav nav-pills">
+            <li role="presentation"><a href="{% url 'home' %}">{% bootstrap_icon "home" %} Home</a></li>
+            <li role="presentation"><a href="{% url 'about' %}">About</a></li>
+            <li role="presentation"><a href="">Other Things</a></li>
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Login <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#"></a></li>
+                <li><a href="#">Go To Login Screen Here</a></li>
+                <li><a href="#">Go to New User Registration here</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="#">Go Somewhere else</a></li>
+              </ul>
+            </li>
+        </ul>-->
+
+        {% block content %}{% endblock %}
+        
+    <footer class="space">
+            <p class="text-faded text-center">Twitter | LinkedIn | Github</p>
+    </footer>
+
+{% endblock %}
+
+<script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+{% bootstrap_javascript %}
+
