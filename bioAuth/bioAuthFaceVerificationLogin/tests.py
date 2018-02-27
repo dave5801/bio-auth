@@ -1,5 +1,5 @@
 from django.test import TestCase
-from bioAuthCredentials.create_and_populate_s3_buckets import S3BucketProperties
+from bioAuthFaceVerificationLogin.create_and_populate_s3_buckets import S3BucketProperties
 import os.path
 import os
 import boto
