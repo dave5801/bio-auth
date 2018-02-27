@@ -2,9 +2,11 @@
 
 
 from django.contrib import admin
-from django.urls import include, path
+from django.urls import path
+from bioAuth.views import HomePageView
+
 
 urlpatterns = [
-    path('', include('bioAuthFaceVerificationLogin.urls')),
+    path('', HomePageView.as_view(), name='home'),
     path('admin/', admin.site.urls),
 ]
