@@ -8,14 +8,13 @@
         <h4 class="description text-center">Track your emotions through photo analysis.</h4>
         <br />
         {% if request.user.is_authenticated %}
+            <!--SAVE FOR LATER
             <a class="btn btn-round btn-neutral btn-fill" href="">Profile</a>
             <a class="btn btn-round btn-neutral btn-fill" href="">Logout</a>
+            -->
         {% else %}
-            <a class="btn btn-round btn-neutral btn-fill" href="">Login</a>
-            <a class="btn btn-round btn-neutral btn-fill" href="">Register</a>
-            <br>
-            <br>
-            <a class="btn btn-round btn-neutral btn-fill" href="">Face Verification Login</a>
+            <a class="btn btn-round btn-neutral btn-fill" href="{% url 'login' %}">Login</a>
+            <a class="btn btn-round btn-neutral btn-fill" href="{% url 'newUser' %}">New User</a>
         {% endif %}
     </div>
 
