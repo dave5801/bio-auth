@@ -1,6 +1,6 @@
 from django.urls import path
-from bioAuthFaceVerificationLogin.views import HomePageView
+from bioAuthFaceVerificationLogin.views import LoginPageView
 
 urlpatterns = [
-    path('', HomePageView.as_view(), name='home'),
+    path('login/', LoginPageView.as_view(), name='login')
 ]
