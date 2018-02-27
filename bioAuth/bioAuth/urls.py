@@ -4,7 +4,7 @@
 from django.contrib import admin
 from django.urls import path
 from bioAuth.views import HomePageView
-from bioAuthFaceVerificationLogin.views import LoginPageView
+import bioAuthFaceVerificationLogin.views 
 
 
 urlpatterns = [
