@@ -1,11 +1,10 @@
-{% extends "bioAuthHome/base.html" %}
+{% extends "bioAuthHome/home.html" %}
 
 {% block body %}
     
     <div class="title-container text-center">
-        <h1>MOTUS.LIFE</h1>
-        <h3>Emotion Tracker</h3>
-        <h4 class="description text-center">Track your emotions through photo analysis.</h4>
+
+        <h4 class="description text-center">Login with Face</h4>
         <br />
         {% if request.user.is_authenticated %}
             <!--SAVE FOR LATER
