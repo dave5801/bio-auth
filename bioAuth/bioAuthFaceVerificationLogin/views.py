@@ -1,6 +1,6 @@
 from django.views.generic import TemplateView
 
 
-class HomePageView(TemplateView):
+class LoginPageView(TemplateView):
 
-    template_name = 'bioAuthFaceVerificationLogin/home.html'
+    template_name = 'bioAuthFaceVerificationLogin/login.html'
